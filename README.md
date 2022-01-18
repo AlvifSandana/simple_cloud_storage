@@ -9,7 +9,7 @@ powered by ExpressJS
 npm install
 ```
 3. Rename ```.env.example``` to ```.env``` and set your environment. 
-4. Create new folder named ```data```
+4. Create new folder named ```data```.
 4. Run app:
 ```bash
 # without nodemon
