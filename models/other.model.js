@@ -6,6 +6,10 @@ const OtherSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  original_filename: {
+    type: String,
+    required: true,
+  },
   filename: {
     type: String, 
     required: true,

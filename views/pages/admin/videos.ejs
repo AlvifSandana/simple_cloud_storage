@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../../layouts/head') %>
+  <title><%= title %></title>
+</head>
+
+<body>
+  <%- include('../../layouts/sidebar') %>
+  <div class="wrapper d-flex flex-column min-vh-100 bg-light">
+    <header class="header header-sticky mb-4">
+      <%- include('../../layouts/topbar') %>
+      <!-- header divider -->
+      <div class="header-divider"></div>
+      <!-- ./header divider -->
+      <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb my-0 ms-2">
+            <li class="breadcrumb-item">
+              <span>Home</span>
+            </li>
+            <li class="breadcrumb-item active"><span>Dashboard</span></li>
+          </ol>
+        </nav>
+      </div>
+    </header>
+    <div class="body flex-grow-1 px-3">
+      <div class="container-lg">
+        <!-- main content-->
+        <%- include('../partials/video-body') %> 
+        <!-- /.main content-->
+      </div>
+    </div>
+    <%- include('../../layouts/footer') %>
+  </div>
+  <%- include('../../layouts/scripts') %>
+</body>
+
+</html>

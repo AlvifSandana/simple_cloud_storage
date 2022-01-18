@@ -1,0 +1,35 @@
+<div class="row mb-2">
+  <div class="col-md-12">
+    <% if(message != '') { %>
+    <div class="mb-2 alert alert-<%= msgClass %>" role="alert"><%= message %></div>
+    <% } %>
+    <div class="card">
+      <div class="card-body">
+        <h4 class="h4">Upload Audio File</h4>
+        <form action="/musics/upload" method="post" enctype="multipart/form-data">
+          <input type="file" class="form-control mb-3" name="file" id="file" accept="audio/*">
+          <button class="btn btn-success float-end" type="submit">Upload</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="h4">List Files</h4>
+        <div class="row p-3">
+          <% if(listfiles.length > 0) { for(let i=0; i < listfiles.length; i++) { %>
+          <div class="col-md-2 border text-center p-2 me-2">
+            <svg class="" width="100px" height="100px">
+              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-music-note"></use>
+            </svg>
+            <p><%= listfiles[i].original_filename %></p>
+          </div>
+          <% }} %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
