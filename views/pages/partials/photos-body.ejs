@@ -22,10 +22,23 @@
         <div class="row p-3">
           <% if(listfiles.length > 0) { for(let i=0; i < listfiles.length; i++) { %>
           <div class="col-md-2 border text-center p-2 me-2">
-            <svg class="" width="100px" height="100px">
+            <!-- <svg class="" width="100px" height="100px">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-image"></use>
-            </svg>
+            </svg> -->
+            <% var image = listfiles[i].filename.split('/'); %>
+            <img src="/images/<%= image[image.length - 1] %>" alt="<%= listfiles[i].original_filename %>" width="100px" height="100px"/>
             <p><%= listfiles[i].original_filename %></p>
+            <div class="dropdown float-end">
+              <button class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuButton" type="button" data-coreui-toggle="dropdown" aria-expanded="false">
+                <svg class="" width="10px" height="10px">
+                  <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-menu"></use>
+                </svg>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a target="_blank" class="dropdown-item" href="/images/<%= image[image.length - 1] %>">View</a></li>
+                <li><a class="dropdown-item text-danger" href="/photos/<%= listfiles[i]._id %>/delete">Delete</a></li>
+              </ul>
+            </div>
           </div>
           <% }} %>
         </div>

@@ -1,5 +1,7 @@
 const Timestamp = require('../helpers/timestamp.helper');
 const PhotoModel = require('../models/photo.model');
+const fs = require('fs');
+const path = require('path');
 
 /**
  * Photo Controller
@@ -31,6 +33,7 @@ const PhotoController = {
    */
   upload: function (req, res, next) {
     const file = req.file.path;
+    const file_path = file.split('/');
     if (!file) {
       res.render('pages/admin/photos', { title: 'Photos - SCS', message: "Failed to save image!", msgClass: "danger" });
     } else {
@@ -44,16 +47,39 @@ const PhotoController = {
         updated_at: Timestamp('dateTime'),
       }, function (err) {
         if (err) {
-          console.log(err)
           res.render('pages/admin/photos', {
             message: err, msgClass: 'error', title: 'Photos - SCS',
           });
         } else {
+          fs.copyFileSync(file, path.join(process.cwd(), '/public/images/', file_path[file_path.length - 1]), fs.constants.COPYFILE_EXCL);
           res.redirect('../photos');
         }
       });
     }
   },
+
+  delete: function (req, res, next) {
+    const id = req.params.id;
+    PhotoModel.findById(id, function (err, photo) {
+      if (err) {
+        res.render('pages/admin/photos', {
+          message: err, msgClass: 'error', title: 'Photos - SCS',
+        });
+      } else {
+        PhotoModel.deleteOne({ owner: photo.owner, original_filename: photo.original_filename })
+          .then((result) => {
+            if (result) {
+              res.redirect('/photos');
+            }
+          })
+          .catch((err) => {
+            res.render('pages/admin/photos', {
+              message: err, msgClass: 'error', title: 'Photos - SCS',
+            });
+          });
+      }
+    });
+  }
 }
 
 module.exports = PhotoController;

@@ -9,5 +9,6 @@ var router = express.Router();
 
 router.get('/', authRequired, PhotoController.index);
 router.post('/upload', multer({ storage: diskStorage }).single("file"), PhotoController.upload);
+router.get('/:id/delete', authRequired, PhotoController.delete);
 
 module.exports = router;
