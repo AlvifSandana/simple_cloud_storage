@@ -1,5 +1,5 @@
 # Data folder
-data/users/*
+data/
 
 # Logs
 logs
