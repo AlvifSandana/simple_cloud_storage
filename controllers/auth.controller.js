@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const generateHasedPassword = require('../helpers/password.helper');
@@ -62,7 +63,7 @@ const AuthController = {
       }
       // validate password
       if (user && user.password === hashedPassword) {
-        const folder_name = path.join(process.cwd(), '/data/users/', user.username);
+        const folder_name = path.join(process.cwd(), process.env.APP_DATA_PATH, user.username);
         if (!fs.existsSync(folder_name)) {
           fs.mkdirSync(folder_name);
         }
@@ -122,7 +123,7 @@ const AuthController = {
             } else {
               // try to create folder by username
               try {
-                const folder_name = path.join(process.cwd(), '/data/users/', username);
+                const folder_name = path.join(process.cwd(), process.env.APP_DATA_PATH, username);
                 if (!fs.existsSync(folder_name)) {
                   fs.mkdirSync(folder_name);
                 }
