@@ -1,24 +1,12 @@
 var express = require('express');
+const AuthController = require('../controllers/auth.controller');
+const DashboardController = require('../controllers/dashboard.controller');
 const authRequired = require('../middlewares/auth.middleware');
-const Music = require('../models/music.model');
-const Photo = require('../models/photo.model');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/dashboard', authRequired, function (req, res, next) {
-  const musics = Music.count({}, function (err, musics) {
-    if (err) {
-      res.render('pages/admin/dashboard', { title: 'Dashboard - SCS', music_count: 0 });
-    } else {
-      Photo.count({}, function (err, photos) {
-        if (err) {
-          res.render('pages/admin/dashboard', { title: 'Dashboard - SCS', music_count: musics, photo_count: 0 });
-        } else {
-          res.render('pages/admin/dashboard', { title: 'Dashboard - SCS', music_count: musics, photo_count: photos });
-        }
-      })
-    }
-  })
-});
+router.get('/', authRequired, DashboardController.index);
+router.get('/dashboard', authRequired, DashboardController.index);
+router.get('/logout', AuthController.logout);
 
 module.exports = router;

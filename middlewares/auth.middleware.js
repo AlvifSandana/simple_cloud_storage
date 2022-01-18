@@ -1,6 +1,5 @@
 const authRequired = (req, res, next) => {
-  console.log(req.session.user);
-  if (req.session) {
+  if (req.cookies.username) {
     next();
   } else {
     res.render('pages/authentication/login', {

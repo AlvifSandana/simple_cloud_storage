@@ -15,7 +15,6 @@ const db = mongoose.connection;
 var loginRouter = require('./routes/login.routes');
 var registerRouter = require('./routes/register.routes');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var musicRouter = require('./routes/music.routes');
 var photoRouter = require('./routes/photo.routes');
 var videoRouter = require('./routes/video.routes');
@@ -33,7 +32,7 @@ db.on('error', function () {
   console.log('connection failed :(')
 });
 db.once('open', function () {
-  console.log("connected :)")
+  console.log("database connected :)")
 });
 
 // set session
@@ -59,11 +58,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/login', loginRouter)
 app.use('/register', registerRouter)
-app.use('/users', usersRouter);
 app.use('/musics', musicRouter);
 app.use('/photos', photoRouter);
-// app.use('/videos', videoRouter);
-// app.use('/others', otherRouter);
+app.use('/videos', videoRouter);
+app.use('/others', otherRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
